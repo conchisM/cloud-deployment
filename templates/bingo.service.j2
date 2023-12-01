@@ -1,0 +1,17 @@
+[Unit]
+Description=Start bingo binary
+After=network.target
+
+[Service]
+OOMScoreAdjust=-500
+User={{ user_name }}
+Group=root
+WorkingDirectory=/bin/
+ExecStart=/bin/bingo run_server localhost
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+PrivateTmp=true
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

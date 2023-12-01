@@ -1,0 +1,12 @@
+student_email: kostya_antonov_04@mail.ru
+postgres_cluster:
+  hosts:
+  - address: {{ db01_ip }}
+    port: 5432
+  - address: {{ db02_ip }}
+    port: 5432
+  user: {{ user_name_db }}
+  password: {{ user_pass_db }}
+  db_name: bingo_db
+  ssl_mode: disable
+  use_closest_node: true

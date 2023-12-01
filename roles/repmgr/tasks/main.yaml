@@ -1,0 +1,41 @@
+---
+vars_files:
+  - "/home/pouse/cicd/cloud-deployment/vars/main.yaml"
+
+- name: Download repmgr repository installer
+  get_url:
+    dest: /tmp/repmgr-installer.sh
+    mode: 0700
+    url: https://dl.2ndquadrant.com/default/release/get/deb
+
+
+- name: Execute repmgr repository installer
+  shell: /tmp/repmgr-installer.sh
+
+
+- name: Install repmgr for PostgreSQL {{ pg_version }}
+  apt:
+    name: postgresql-{{ pg_version }}-repmgr
+    update_cache: yes
+
+ 
+- name: Setup repmgr user and database
+  become_user: postgres
+  ignore_errors: yes
+  shell: |
+    createuser --replication --createdb --createrole --superuser repmgr &&
+    psql -c 'ALTER USER repmgr SET search_path TO repmgr_test, "$user", public;' &&
+    createdb repmgr --owner=repmgr
+
+
+- name: Copy repmgr configuration
+  template:
+    src: repmgr.conf.j2
+    dest: /etc/repmgr.conf
+
+
+- name: Restart PostgreSQL
+  systemd:
+    name: postgresql
+    enabled: yes
+    state: restarted

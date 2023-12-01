@@ -1,0 +1,13 @@
+ETCD_NAME=db1
+ETCD_DATA_DIR="/var/lib/etcd/default.etcd"
+
+
+ETCD_LISTEN_PEER_URLS="http://0.0.0.0:2380" 
+ETCD_LISTEN_CLIENT_URLS="http://{{ db01_ip }}:2379,http://127.0.0.1:2379" 
+
+
+ETCD_INITIAL_ADVERTISE_PEER_URLS="http://{{ db01_ip }}:2380" 
+ETCD_INITIAL_CLUSTER="db1=http://{{ db01_ip }}:2380,db2=http://{{ db02_ip }}:2380"
+ETCD_INITIAL_CLUSTER_STATE="new"
+ETCD_INITIAL_CLUSTER_TOKEN="etcd-cluster-1"
+ETCD_ADVERTISE_CLIENT_URLS="http://{{ db01_ip }}:2379" 

@@ -1,0 +1,22 @@
+local    all      postgres                                  peer
+local    all         all                                    peer
+host     all         all             127.0.0.1/32            md5
+host     all         all             ::1/128                 md5
+
+local    replication all                                    peer
+host     replication all             127.0.0.1/32            md5
+host     replication all              ::1/128                md5
+
+local    replication repmgr                                 trust
+host     replication repmgr           127.0.0.1/32          trust
+host     replication all            {{ node01_ip  }}/24     trust
+host     replication repmgr         {{ db01_ip }}/24        trust
+host     replication repmgr         {{ db02_ip }}/24        trust
+host     replication repmgr         {{ node02_ip }}/24      trust
+
+local    repmgr       repmgr                                 trust
+host     repmgr       repmgr           127.0.0.1/32          trust
+host     all          all            {{ node01_ip  }}/24     trust
+host     repmgr       repmgr         {{ db01_ip }}/24        trust
+host     repmgr       repmgr         {{ db02_ip }}/24        trust
+host     repmgr       repmgr         {{ node02_ip }}/24      trust

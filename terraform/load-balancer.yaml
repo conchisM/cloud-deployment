@@ -1,0 +1,8 @@
+load_balancer_spec:
+  target_group_spec:
+    name: "ig-tg"
+    description: "Instance group as target group"
+    labels:
+      foo: "baz"
+      bar: "baz"
+  max_opening_traffic_duration: 10s

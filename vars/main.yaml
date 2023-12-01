@@ -1,0 +1,9 @@
+user_name: ubuntu
+ansible_python_interpreter: /usr/bin/python3
+node01_ip: 158.160.125.0
+node02_ip: 84.201.129.110
+db01_ip: 10.2.0.24
+pg_version: "12"
+db02_ip: 10.2.0.34
+user_name_db: postgresql
+user_pass_db: 1915

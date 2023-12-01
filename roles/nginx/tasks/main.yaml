@@ -1,0 +1,38 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: latest
+
+- name: Copy main conf file
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+
+- name: Copy host config file
+  template:
+    src: bingo.j2
+    dest: /etc/nginx/sites-enabled/bingo
+
+- name: create chache directory
+  file:
+    path: /etc/cache/nginx
+    state: directory
+    mode: '0777'
+
+- name: copy crt file
+  copy:
+    src: ../files/bingo.crt
+    dest: /etc/ssl/certs/bingo.crt
+
+- name: copy key file
+  copy:
+    src: ../files/bingo.key
+    dest: /etc/ssl/private/bingo.key
+
+- name: nginx systemd
+  systemd:
+    name: nginx
+    daemon-reload: yes
+    enabled: yes
+    state: started

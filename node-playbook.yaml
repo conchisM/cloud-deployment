@@ -1,0 +1,58 @@
+---
+- name: Deploy bingo application
+  hosts: all
+
+  vars_files:
+    - ./vars/main.yaml
+
+  remote_user: "{{ user_name }}"
+  become: yes
+
+  pre_tasks:
+    - name: install ntp
+      apt:
+        name: ntp
+        state: present
+
+    - name: Create bingo directory
+      file:
+        path: /opt/bingo
+        state: directory
+
+    - name: Copy conf file
+      template:
+        src: ./templates/config.yaml.j2
+        dest: /opt/bingo/config.yaml
+        mode: '0777'
+
+    - name: Create bingo logs directory
+      file:
+        path: /opt/bongo/logs/db539754c6
+        state: directory
+
+    - name: Copy log file
+      copy:
+        src: ./templates/main.log
+        dest: /opt/bongo/logs/db539754c6/main.log
+        mode: "0777"
+
+    - name: Install bingo binary
+      copy:
+        src: ./bingo
+        dest: /bin/bingo
+        mode: "0755"
+
+    - name: Copy unit-file
+      template:
+        src: ./templates/bingo.service.j2
+        dest: /etc/systemd/system/bingo.service
+
+    - name: Enable service bingo and ensure it is not masked
+      systemd:
+        name: bingo
+        enabled: yes
+        masked: no
+        daemon_reload: yes
+
+  roles:
+    - nginx
