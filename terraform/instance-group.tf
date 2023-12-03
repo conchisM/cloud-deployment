@@ -1,6 +1,6 @@
 resource "yandex_compute_instance_group" "bingo-group1" {
   name               = "bingo-group1"
-  service_account_id = "aje3lpbjt2nhcn42nigt"
+  service_account_id = {var.service_account}
   allocation_policy {
     zones = ["ru-central1-a"]
   }

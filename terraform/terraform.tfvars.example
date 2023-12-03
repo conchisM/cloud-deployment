@@ -1,2 +1,6 @@
-folder_id = ""
-user_name = ""
+folder_id       = ""
+user_name       = ""
+service_account = ""
+user_name_db    = ""
+user_pass_db    = ""
+user_email      = ""

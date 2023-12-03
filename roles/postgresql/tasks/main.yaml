@@ -1,6 +1,4 @@
 ---
-include_vars: "/home/pouse/cicd/cloud-deployment/vars/main.yaml"
-
 - name: Add PostgreSQL apt key
   apt_key:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc

@@ -3,14 +3,13 @@ server {
 	
 	listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        server_name localhost;
 
         ssl_certificate /etc/ssl/certs/bingo.crt;
         ssl_certificate_key /etc/ssl/private/bingo.key;
         ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
 
         location ~* /long_dummy {
-            proxy_pass http://localhost:10010;
+            proxy_pass http://{{ ansible_default_ipv4.address }}:10010;
 	    proxy_cache long_dummy_cache;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -22,7 +21,7 @@ server {
         }
 
         location / {
-            proxy_pass http://localhost:10010;
+            proxy_pass http://{{ ansible_default_ipv4.address }}:10010;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

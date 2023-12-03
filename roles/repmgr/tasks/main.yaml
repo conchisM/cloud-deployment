@@ -1,7 +1,4 @@
 ---
-vars_files:
-  - "/home/pouse/cicd/cloud-deployment/vars/main.yaml"
-
 - name: Download repmgr repository installer
   get_url:
     dest: /tmp/repmgr-installer.sh

@@ -1,7 +1,4 @@
 ---
-vars_files:
-  - "/home/pouse/cicd/cloud-deployment/vars/main.yaml"
-
 - name: Register primary node
   become_user: postgres
   shell: repmgr primary register

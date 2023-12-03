@@ -17,3 +17,13 @@ variable "user_pass_db" {
         description = "User password db"
         type        = string
 }
+
+variable "service_account" {
+	description = "YC service account"
+	type        = string
+}
+
+variable "user_email" {
+	description = "User email"
+	type        = string
+}
